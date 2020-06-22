@@ -9,11 +9,17 @@ app.get(
   })
 );
 
-app.get('/auth/google/callback', passport.authenticate('google'));
+app.get(
+  '/auth/google/callback', 
+  passport.authenticate('google'),
+  (req, res) => {
+    res.redirect('/surveys')
+  }
+  );
 
 app.get('/api/logout', (req, res) => {
   req.logout();
-  res.send(req.user);
+  res.redirect('/');
 });
 
 app.get('/api/currentUser', (req, res) => {
